@@ -1,52 +1,62 @@
 package Lista2;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.TreeMap;
 
 public class Zadanie3 {
-    public static void main(String[] args) {
 
-    Scanner key = new Scanner(System.in);
+    Scanner input = new Scanner(System.in);
 
-    System.out.println("Podaj wartość maksymalną przedziału liczb losowych: ");
-    int x = key.nextInt();
-    System.out.println("Ile wartości mam wylosować?");
-    int y = key.nextInt();
-
-    Zadanie3 los = new Zadanie3();
-    Map<Integer, Integer> mapa = new TreeMap();
-    for (int i = 0; i < y; i++) {
-        mapa.put(los.losowanie(x), los.losowanie(y));
+    public static void main(String[] args){
+        Zadanie3 mainClass = new Zadanie3();
+        mainClass.init();
     }
 
-    Set<Integer> keySet = mapa.keySet();
-    Collection<Integer> valueSet = mapa.values();
-    System.out.println("Ilość wartości: " + mapa.size());
-    System.out.println("Klucze: " + keySet);
-    System.out.println("Wartości:" + valueSet);
+    public void init(){
+        System.out.println("Do jakiej wartości losować liczby? ");
+        int maxRangeNumber = this.input.nextInt();
+        System.out.println();
+        System.out.println("Ile liczb wylosować?");
+        int randomNumbers = this.input.nextInt();
 
+        Map<Integer, Integer> mapa = mapGenerator(maxRangeNumber, randomNumbers);
+        System.out.println(mapa);
+    }
+
+    public Map<Integer, Integer> mapGenerator(int key, int number) {
+        Random random = new Random();
+        Map<Integer,Integer> result = new TreeMap();
+        int randomNumber = 0;
+        for(int i = 0; i < number ; ++i) {
+            randomNumber = random.nextInt(key) + 1;
+
+            if (!result.keySet().contains(randomNumber)) {
+                result.put(randomNumber, 0);
+            }
+            else {
+                int value = result.get(randomNumber);
+                result.put(randomNumber, ++value);
+            }
+        }
+        return result;
+    }
 }
 
 
-public int losowanie (int x){
-    Random rand = new Random();
-    x = rand.nextInt(x-1) + 1;
-    return x;
-    }
+/*package Lista2;
 
-
-
-}
-
-/*
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
-public class Main {
+public class Zadanie3 {
 
     public static void main(String[] args){
-        Main mainClass = new Main();
+        Zadanie3 mainClass = new Zadanie3();
         mainClass.init();
+
     }
 
      public void init(){
@@ -55,6 +65,7 @@ public class Main {
         int randomNumbers = 100;
 
         Map<Integer, Integer> mapa = mapGenerator(maxRangeNumber, randomNumbers);
+        System.out.println(mapa);
     }
 
     public Map<Integer, Integer> mapGenerator(int X, int Y) {
@@ -75,5 +86,6 @@ public class Main {
         return result;
     }
 }
- */
+*/
+
 
